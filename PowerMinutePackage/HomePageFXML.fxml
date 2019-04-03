@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="593.0" maxWidth="1060.0" minHeight="593.0" minWidth="1060.0" prefHeight="593.0" prefWidth="1060.0" style="-fx-background-color: #A2A2A2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PowerMinutePackage.HomePageController">
+   <children>
+      <Pane layoutX="-1.0" prefHeight="58.0" prefWidth="1079.0" style="-fx-background-color: #373333 #373333;">
+         <children>
+            <Label layoutX="336.0" layoutY="-17.0" maxHeight="76.0" maxWidth="408.0" minHeight="76.0" minWidth="408.0" prefHeight="76.0" prefWidth="408.0" text="Power Minute" textFill="#fac863">
+               <font>
+                  <Font name="System Italic" size="64.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="-2.0" layoutY="549.0" maxHeight="46.0" maxWidth="1079.0" minHeight="46.0" minWidth="1079.0" prefHeight="46.0" prefWidth="1079.0" style="-fx-background-color: #373333 #373333;">
+         <children>
+            <Pane layoutX="490.0" layoutY="6.0" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #fac863;">
+               <children>
+                  <Label fx:id="id_label" contentDisplay="CENTER" layoutX="4.0" layoutY="8.0" prefHeight="17.0" prefWidth="93.0" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Black" size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children></Pane>
+      <TabPane fx:id="home_tab_pane" layoutX="-4.0" layoutY="58.0" maxHeight="491.0" maxWidth="1079.0" minHeight="491.0" minWidth="1079.0" prefHeight="491.0" prefWidth="1079.0" side="LEFT" style="-fx-background-color: #A2A2A2;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="150.0" tabMaxWidth="150.0" tabMinHeight="150.0" tabMinWidth="102.0">
+        <tabs>
+          <Tab fx:id="reminders_tab">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="532.0" prefWidth="887.0">
+                     <children>
+                        <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="27.0" layoutY="69.0" prefHeight="354.0" prefWidth="861.0" style="-fx-background-color: #fac863;">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="5.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Day">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="7:00 AM" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="8:00 AM" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="9:00 AM" GridPane.columnIndex="3">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="10:00 AM" GridPane.columnIndex="4">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="11:00 AM" GridPane.columnIndex="5">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="12:00 PM" GridPane.columnIndex="6">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="1:00 PM" GridPane.columnIndex="7">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="2:00 PM" GridPane.columnIndex="8">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="3:00 PM" GridPane.columnIndex="9">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="4:00 PM" GridPane.columnIndex="10">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="5:00 PM" GridPane.columnIndex="11">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Monday" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Tuesday" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Wednesday" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Thursday" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Friday" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="mon_7_checkbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_8_checkbox" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_9_checkbox" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_10_checkbox" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_11_checkbox" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_12_checkbox" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="tues_7_checkbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_8_checkbox" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_9_checkbox" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_10_checkbox" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_11_checkbox" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_12_checkbox" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_1_checkbox" mnemonicParsing="false" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="mon_1_checkbox" mnemonicParsing="false" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_2_checkbox" mnemonicParsing="false" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="tues_2_checkbox" mnemonicParsing="false" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="mon_3_checkbox" mnemonicParsing="false" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="tues_3_checkbox" mnemonicParsing="false" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="mon_4_checkbox" mnemonicParsing="false" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="mon_5_checkbox" mnemonicParsing="false" GridPane.columnIndex="11" GridPane.rowIndex="1" />
+                              <CheckBox fx:id="tues_4_checkbox" mnemonicParsing="false" GridPane.columnIndex="10" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="tues_5_checkbox" mnemonicParsing="false" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="wed_7_checkbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_7_checkbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_7_checkbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="wed_8_checkbox" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_8_checkbox" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_8_checkbox" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="wed_9_checkbox" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_9_checkbox" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="wed_10_checkbox" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_10_checkbox" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="wed_11_checkbox" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="fri_9_checkbox" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="fri_10_checkbox" mnemonicParsing="false" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="thur_11_checkbox" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_11_checkbox" mnemonicParsing="false" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="wed_12_checkbox" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_12_checkbox" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_12_checkbox" mnemonicParsing="false" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="wed_1_checkbox" mnemonicParsing="false" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="wed_2_checkbox" mnemonicParsing="false" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_1_checkbox" mnemonicParsing="false" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_1_checkbox" mnemonicParsing="false" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="thur_2_checkbox" mnemonicParsing="false" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_2_checkbox" mnemonicParsing="false" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="wed_3_checkbox" mnemonicParsing="false" GridPane.columnIndex="9" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="wed_4_checkbox" mnemonicParsing="false" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="wed_5_checkbox" mnemonicParsing="false" GridPane.columnIndex="11" GridPane.rowIndex="3" />
+                              <CheckBox fx:id="thur_3_checkbox" mnemonicParsing="false" GridPane.columnIndex="9" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="thur_4_checkbox" mnemonicParsing="false" GridPane.columnIndex="10" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="thur_5_checkbox" mnemonicParsing="false" GridPane.columnIndex="11" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="fri_3_checkbox" mnemonicParsing="false" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="fri_4_checkbox" mnemonicParsing="false" GridPane.columnIndex="10" GridPane.rowIndex="5" />
+                              <CheckBox fx:id="fri_5_checkbox" mnemonicParsing="false" GridPane.columnIndex="11" GridPane.rowIndex="5" />
+                           </children>
+                        </GridPane>
+                        <Button layoutX="787.0" layoutY="438.0" mnemonicParsing="false" onAction="#saveReminders" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #373333 #373333;" text="Save" textFill="#a2a2a2" />
+                        <Text layoutX="49.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hint: Set your reminders by choosing which hours of each day that you would like to receive a notification to do your power minute." wrappingWidth="817.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="progress_tab" onSelectionChanged="#updatePieCharts">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane fx:id="stats_tab_pane" layoutX="1.0" layoutY="-3.0" maxHeight="491.0" maxWidth="922.0" minHeight="491.0" minWidth="922.0" prefHeight="491.0" prefWidth="922.0" tabClosingPolicy="UNAVAILABLE" tabMaxWidth="437.0" tabMinWidth="436.0">
+                          <tabs>
+                            <Tab fx:id="user_stats_tab" text="Your Statistics">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="922.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TabPane fx:id="user_stats_tab_pane" layoutX="1.0" layoutY="-2.0" prefHeight="466.0" prefWidth="918.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                                            <tabs>
+                                              <Tab fx:id="user_today_stats_tab" text="Today">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <PieChart fx:id="user_today_pie_chart" layoutY="-1.0" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </Tab>
+                                              <Tab fx:id="user_week_stats_tab" text="Past Week">
+                                                <content>
+                                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <PieChart fx:id="user_week_pie_chart" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                </content>
+                                              </Tab>
+                                                <Tab fx:id="user_month_stats_tab" text="Past Month">
+                                                  <content>
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <PieChart fx:id="user_month_pie_chart" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                  </content>
+                                                </Tab>
+                                            </tabs>
+                                          </TabPane>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                            <Tab fx:id="partner_stats_tab" text="Partners Statistics">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="922.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TabPane fx:id="partner_stats_tab_pane1" prefHeight="466.0" prefWidth="918.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                                             <tabs>
+                                                <Tab fx:id="partner_today_stats_tab1" text="Today">
+                                                   <content>
+                                                      <AnchorPane fx:id="partner_today_anchor" maxHeight="427.0" maxWidth="918.0" minHeight="427.0" minWidth="918.0" prefHeight="427.0" prefWidth="918.0">
+                                                         <children>
+                                                            <Label fx:id="partner_today_label" layoutX="250.0" layoutY="162.0" prefHeight="58.0" prefWidth="419.0" text="Add a partner to view their stats by entering their ID" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <PieChart fx:id="partner_today_pie_chart" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                            <TextField fx:id="partner_today_textfield" layoutX="366.0" layoutY="214.0" minWidth="187.0" prefWidth="187.0" promptText="Partner ID" />
+                                                            <Button fx:id="partner_today_button" layoutX="366.0" layoutY="253.0" mnemonicParsing="false" onAction="#addPartner" prefWidth="187.0" text="Submit" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                                <Tab fx:id="partner_week_stats_tab1" text="Past Week">
+                                                   <content>
+                                                      <AnchorPane maxHeight="427.0" maxWidth="918.0" minHeight="427.0" minWidth="918.0" prefHeight="427.0" prefWidth="918.0">
+                                                         <children>
+                                                            <PieChart fx:id="partner_week_pie_chart" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                            <Label fx:id="partner_week_label" layoutX="250.0" layoutY="185.0" prefHeight="58.0" prefWidth="419.0" text="Add a partner to view their stats by entering their ID" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                                <Tab fx:id="partner_month_stats_tab1" text="Past Month">
+                                                   <content>
+                                                      <AnchorPane maxHeight="427.0" maxWidth="918.0" minHeight="427.0" minWidth="918.0" prefHeight="427.0" prefWidth="918.0">
+                                                         <children>
+                                                            <PieChart fx:id="partner_month_pie_chart" maxHeight="439.0" maxWidth="918.0" minHeight="439.0" minWidth="918.0" prefHeight="439.0" prefWidth="918.0" />
+                                                            <Label fx:id="partner_month_label" layoutX="250.0" layoutY="185.0" prefHeight="58.0" prefWidth="419.0" text="Add a partner to view their stats by entering their ID" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                             </tabs>
+                                          </TabPane>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab fx:id="rewards_tab" onSelectionChanged="#updateProgressBar">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ProgressBar fx:id="level_bar" layoutX="156.0" layoutY="41.0" prefHeight="31.0" prefWidth="610.0" progress="0.0" />
+                        <Label layoutX="156.0" layoutY="14.0" maxHeight="27.0" maxWidth="115.0" minHeight="27.0" minWidth="115.0" prefHeight="27.0" prefWidth="115.0" text="Current Level:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="current_level_label" layoutX="270.0" layoutY="14.0" prefHeight="24.0" prefWidth="25.0" text="1" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <AnchorPane layoutX="156.0" layoutY="345.0" prefHeight="90.0" prefWidth="610.0" style="-fx-background-color: #fac863;">
+                           <children>
+                              <Label fx:id="recent_quote_label" alignment="TOP_LEFT" layoutX="7.0" layoutY="6.0" prefHeight="90.0" prefWidth="600.0" text="If you can tune into your purpose and really align with it, setting goals so that your vision is an expression of that purpose, then life flows much more easily. - Jack Canfield" wrapText="true">
+                                 <font>
+                                    <Font name="System Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="156.0" layoutY="135.0" prefHeight="90.0" prefWidth="610.0" style="-fx-background-color: #fac863;">
+                           <children>
+                              <Label fx:id="fav_quote_label" alignment="TOP_LEFT" layoutX="7.0" prefHeight="90.0" prefWidth="600.0" text="If you can tune into your purpose and really align with it, setting goals so that your vision is an expression of that purpose, then life flows much more easily. - Jack Canfield" wrapText="true">
+                                 <font>
+                                    <Font name="System Italic" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <Label layoutX="156.0" layoutY="311.0" prefHeight="27.0" prefWidth="255.0" text="Most Recent Unlocked  Quote:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <ComboBox id="combo-box" fx:id="fav_quote_combobox" layoutX="156.0" layoutY="233.0" onAction="#setFavoriteQuote" prefWidth="150.0" promptText="Favorite Quote:" />
+                        <Label layoutX="156.0" layoutY="108.0" prefHeight="27.0" prefWidth="124.0" text="Favorite Quote:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="videos_tab">
+              <content>
+                <AnchorPane fx:id="video_tab_pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
