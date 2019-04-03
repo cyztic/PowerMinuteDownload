@@ -20,12 +20,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         //start up the connection to database here:
-        //String user = "stretchpp";
-        String user = "root";
-        //String pass = "stretchpp";
-        String pass = "Mancity22!";
-        //String url = "jdbc:mysql://lindenwoodcshome.ddns.net/stretchpp?useLegacyDatetimeCode=false&serverTimezone=America/Chicago";
-        String url = "jdbc:mysql://localhost/stretchpp";
+        String user = "stretchpp";
+        //String user = "root";
+        String pass = "stretchpp";
+        //String pass = "Mancity22!";
+        String url = "jdbc:mysql://lindenwoodcshome.ddns.net/stretchpp?useLegacyDatetimeCode=false&serverTimezone=America/Chicago";
+        //String url = "jdbc:mysql://localhost/stretchpp";
         // Create the database connection.
         DBConnector db = DBConnector.getInstance();
         db.setDBInfo(url, user, pass);
