@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -41,7 +42,7 @@ import javafx.stage.Modality;
 
 public class HomePageController implements Initializable {
 
-//*********************************MEMBER VARIABLES******************************************
+    //*********************************MEMBER VARIABLES******************************************
     //get database connector singleton object for this class
     DBConnector db_connector = DBConnector.getInstance();
 
@@ -80,13 +81,7 @@ public class HomePageController implements Initializable {
             partner_today_pie_chart, partner_week_pie_chart, partner_month_pie_chart;
     //labels for partner stat tabs if there is no partner
     @FXML
-    private Label partner_today_label, partner_week_label, partner_month_label, id_label;
-
-    @FXML
-    private TextField partner_today_textfield;
-
-    @FXML
-    private Button partner_today_button;
+    private Label partner_today_label, partner_week_label, partner_month_label;
 
     //all check boxes for reminder selection
     @FXML
@@ -102,7 +97,7 @@ public class HomePageController implements Initializable {
             fri_11_checkbox, fri_12_checkbox, fri_1_checkbox, fri_2_checkbox, fri_3_checkbox,
             fri_4_checkbox, fri_5_checkbox;
     @FXML
-    private AnchorPane video_tab_pane, partner_today_anchor;
+    private AnchorPane video_tab_pane;
     @FXML
     private ProgressBar level_bar;
     @FXML
@@ -140,58 +135,81 @@ public class HomePageController implements Initializable {
     // CALLED:  in initialize()
     // OUTPUT:  none
     private void setPieCharts() {
+        PieChart.Data acceptedWorkout;
+        PieChart.Data declineWorkout;
+
         //user daily pie chart stats
-        PieChart.Data acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserDailyAccepted());
-        PieChart.Data declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserDailyDeclined());
+        if (0 < db_connector.getUserDailyAccepted() && 0 < db_connector.getUserDailyDeclined()) {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserDailyAccepted());
+            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserDailyDeclined());
+        } else {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", 0);
+            declineWorkout = new PieChart.Data("Declined Power Minutes", 0);
+        }
         user_today_pie_chart.getData().add(acceptedWorkout);
         user_today_pie_chart.getData().add(declineWorkout);
         user_today_pie_chart.setTitle("Your Daily Stats");
 
         //user week stats
-        acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserWeeklyAccepted());
-        declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserWeeklyDeclined());
+        if (0 < db_connector.getUserWeeklyAccepted() && 0 < db_connector.getUserWeeklyDeclined()) {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserWeeklyAccepted());
+            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserWeeklyDeclined());
+
+        } else {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", 0);
+            declineWorkout = new PieChart.Data("Declined Power Minutes", 0);
+        }
         user_week_pie_chart.getData().add(acceptedWorkout);
         user_week_pie_chart.getData().add(declineWorkout);
         user_week_pie_chart.setTitle("Your Weekly Stats");
 
         //user month stats
-        acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserMonthlyAccepted());
-        declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserMonthlyDeclined());
+        if (0 < db_connector.getUserMonthlyAccepted() && 0 < db_connector.getUserMonthlyDeclined()) {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getUserMonthlyAccepted());
+            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getUserMonthlyDeclined());
+        } else {
+            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", 0);
+            declineWorkout = new PieChart.Data("Declined Power Minutes", 0);
+        }
         user_month_pie_chart.getData().add(acceptedWorkout);
         user_month_pie_chart.getData().add(declineWorkout);
         user_month_pie_chart.setTitle("Your Monthly Stats");
 
-        //------------test if user has a partner-------------
+
         //if user does have partner get partners stats
-        if (0 < db_connector.getPartnerID()) {
-            //delete partner textfield and button bc there is already a partner
-            partner_today_anchor.getChildren().remove(partner_today_textfield);
-            partner_today_anchor.getChildren().remove(partner_today_button);
-            //partner today pie chart stats
-            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerDailyAccepted());
-            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerDailyDeclined());
-            partner_today_pie_chart.getData().add(acceptedWorkout);
-            partner_today_pie_chart.getData().add(declineWorkout);
-            partner_today_pie_chart.setTitle("Partner's Daily Stats");
+        //partner today pie chart stats
+        acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerDailyAccepted());
+        declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerDailyDeclined());
+        partner_today_pie_chart.getData().add(acceptedWorkout);
+        partner_today_pie_chart.getData().add(declineWorkout);
+        partner_today_pie_chart.setTitle("Partner's Daily Stats");
 
-            //partner weekly pie chart stats
-            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerWeeklyAccepted());
-            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerWeeklyDeclined());
-            partner_week_pie_chart.getData().add(acceptedWorkout);
-            partner_week_pie_chart.getData().add(declineWorkout);
-            partner_week_pie_chart.setTitle("Partner's Weekly Stats");
+        //partner weekly pie chart stats
+        acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerWeeklyAccepted());
+        declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerWeeklyDeclined());
+        partner_week_pie_chart.getData().add(acceptedWorkout);
+        partner_week_pie_chart.getData().add(declineWorkout);
+        partner_week_pie_chart.setTitle("Partner's Weekly Stats");
 
-            //partner monthly pie chart stats
-            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerMonthlyAccepted());
-            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerMonthlyDeclined());
-            partner_month_pie_chart.getData().add(acceptedWorkout);
-            partner_month_pie_chart.getData().add(declineWorkout);
-            partner_month_pie_chart.setTitle("Partner's Monthly Stats");
-            //if user does not have a partner then set labels
-        } else if (0 == db_connector.getPartnerID()) {
+        //partner monthly pie chart stats
+        acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerMonthlyAccepted());
+        declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerMonthlyDeclined());
+        partner_month_pie_chart.getData().add(acceptedWorkout);
+        partner_month_pie_chart.getData().add(declineWorkout);
+        partner_month_pie_chart.setTitle("Partner's Monthly Stats");
+
+        //if user does not have a partner then set labels
+        if (0 == db_connector.getPartnerID()) {
             partner_today_label.setText("Add a partner to view their stats by entering their ID");
             partner_week_label.setText("Add a partner to view their stats by entering their ID");
             partner_month_label.setText("Add a partner to view their stats by entering their ID");
+            partner_month_pie_chart.setLabelsVisible(false);
+            partner_today_pie_chart.setLabelsVisible(false);
+            partner_week_pie_chart.setLabelsVisible(false);
+            partner_month_pie_chart.setLegendVisible(false);
+            partner_week_pie_chart.setLegendVisible(false);
+            partner_today_pie_chart.setLegendVisible(false);
+
         }
 
     }
@@ -753,55 +771,34 @@ public class HomePageController implements Initializable {
             partner_today_label.setText("");
             partner_week_label.setText("");
             partner_month_label.setText("");
+
+            //set pie chart visibility to true for partner incase it wasnt before
+            //if someone adds a partner then this will work
+            partner_month_pie_chart.setLabelsVisible(true);
+            partner_today_pie_chart.setLabelsVisible(true);
+            partner_week_pie_chart.setLabelsVisible(true);
+            partner_month_pie_chart.setLegendVisible(true);
+            partner_week_pie_chart.setLegendVisible(true);
+            partner_today_pie_chart.setLegendVisible(true);
         }
     }
 
-    // INPUT:    nothing
-    // TASK:     ON ACTION FOR partner_today_button
-    //           adds a partner to users database info
-    //           by entering an ID. And updates Piechart.
-    // OUTPUT:   nothing
+
     @FXML
-    private void addPartner() {
-        if (!partner_today_textfield.getText().isEmpty()) {
-
-            //get id from text field
-            int id = Integer.parseInt(partner_today_textfield.getText());
-
-            //set it to partner in database with db connector
-            db_connector.addAccountabilityPartner(id);
-
-            //remove text field and button to add partner
-            partner_today_anchor.getChildren().remove(partner_today_textfield);
-            partner_today_anchor.getChildren().remove(partner_today_button);
-
-            //set labels to null
-            partner_today_label.setText("");
-            partner_week_label.setText("");
-            partner_month_label.setText("");
-
-            //set pie charts to newly added partner
-            //partner today pie chart stats
-            PieChart.Data acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerDailyAccepted());
-            PieChart.Data declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerDailyDeclined());
-            partner_today_pie_chart.getData().add(acceptedWorkout);
-            partner_today_pie_chart.getData().add(declineWorkout);
-            partner_today_pie_chart.setTitle("Partner's Daily Stats");
-
-            //partner weekly pie chart stats
-            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerWeeklyAccepted());
-            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerWeeklyDeclined());
-            partner_week_pie_chart.getData().add(acceptedWorkout);
-            partner_week_pie_chart.getData().add(declineWorkout);
-            partner_week_pie_chart.setTitle("Partner's Weekly Stats");
-
-            //partner monthly pie chart stats
-            acceptedWorkout = new PieChart.Data("Accepted Power Minutes", db_connector.getPartnerMonthlyAccepted());
-            declineWorkout = new PieChart.Data("Declined Power Minutes", db_connector.getPartnerMonthlyDeclined());
-            partner_month_pie_chart.getData().add(acceptedWorkout);
-            partner_month_pie_chart.getData().add(declineWorkout);
-            partner_month_pie_chart.setTitle("Partner's Monthly Stats");
+    private void openProfile() {
+        Stage primaryStage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ProfileFXML.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        primaryStage.setTitle("Profile");
+        //set icon image
+        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
+        primaryStage.getIcons().add(iconImage);
+        primaryStage.setScene(new Scene(root, 300, 260));
+        primaryStage.show();
     }
 
     // INPUT:   url and Resource Bundle
@@ -811,16 +808,6 @@ public class HomePageController implements Initializable {
     // OUTPUT:  none
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //set id label to users ID
-        String idLabelString;
-        String idString = Integer.toString(db_connector.getUSER_ID());
-        idLabelString = "Your ID: " + idString;
-        id_label.setText(idLabelString);
-        id_label.setAlignment(Pos.CENTER);
-
-        //db_connector.setDBInfo("jdbc:mysql://lindenwoodcshome.ddns.net/stretchpp?useLegacyDatetimeCode=false&serverTimezone=America/Chicago", "stretchpp", "stretchpp");
-        //db_connector.setDBInfo("jdbc:mysql://localhost/stretchpp", "root", "Mancity22!");
-
         setCurrentLevel();
 
         //call population methods for arrays:

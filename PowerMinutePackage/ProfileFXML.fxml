@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="238.0" prefWidth="300.0" style="-fx-background-color: #A2A2A2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PowerMinutePackage.ProfileController">
+   <children>
+      <Label fx:id="user_id_label" contentDisplay="CENTER" layoutX="57.0" layoutY="42.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #fac863;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="user_name_label" contentDisplay="CENTER" layoutX="57.0" layoutY="14.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #fac863;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="partner_id_label" contentDisplay="CENTER" layoutX="57.0" layoutY="147.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #fac863;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+      <Button fx:id="partner_today_button" layoutX="57.0" layoutY="205.0" mnemonicParsing="false" onAction="#addPartner" prefWidth="187.0" text="Submit" />
+      <TextField fx:id="add_partner_textfield" layoutX="57.0" layoutY="173.0" minWidth="187.0" prefWidth="187.0" promptText="Enter New Partner ID" />
+      <Label fx:id="user_wellbucks_label" contentDisplay="CENTER" layoutX="57.0" layoutY="69.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #fac863;" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Black" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

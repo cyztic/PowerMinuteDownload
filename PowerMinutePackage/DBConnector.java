@@ -1,5 +1,7 @@
 package PowerMinutePackage;
+import java.io.IOException;
 import java.sql.*;
+import java.io.FileWriter;
 
 /**Interfaces with the PowerMinute database
  *
@@ -519,7 +521,7 @@ public class DBConnector {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
             String myQuery = "INSERT INTO User_T VALUES ("+ ID + ", \"" + fname +"\""
-                    + ", " + "\"" + lname + "\"" + ", null)";
+                    + ", " + "\"" + lname + "\"" + ", null, 0)";
             System.out.println("Query: " + myQuery);
             stmt.execute(myQuery);
             System.out.println("Done.");
@@ -585,6 +587,85 @@ public class DBConnector {
         return ID;
     }
 
+    // INPUT:    none
+    // TASK:     get the user first name
+    // OUTPUT:   string storing first name
+    public String getUsersFirstName()
+    {
+        String name = "";
+
+        try
+        {
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+
+            stmt = conn.createStatement();
+            String myQuery = "SELECT firstName FROM User_T WHERE userID = " + USER_ID;
+
+            stmt.execute(myQuery);
+
+            ResultSet rs = stmt.executeQuery(myQuery);
+
+            while(rs.next())
+            {
+                name = rs.getString("firstName");
+            }
+
+        }
+        // Handle SQL errors.
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+        // Handle any other errors.
+        catch (Exception e)
+        {
+            System.out.print("Error " + e);
+        }
+
+        // Return the user's ID.
+        return name;
+    }
+
+    // INPUT:    none
+    // TASK:     get the user first name
+    // OUTPUT:   string storing first name
+    public String getUsersLastName()
+    {
+        String name = "";
+
+        try
+        {
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+
+            stmt = conn.createStatement();
+            String myQuery = "SELECT lastName FROM User_T WHERE userID = " + USER_ID;
+
+            stmt.execute(myQuery);
+
+            ResultSet rs = stmt.executeQuery(myQuery);
+
+            while(rs.next())
+            {
+                name = rs.getString("lastName");
+            }
+
+        }
+        // Handle SQL errors.
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+        // Handle any other errors.
+        catch (Exception e)
+        {
+            System.out.print("Error " + e);
+        }
+
+        // Return the user's ID.
+        return name;
+    }
     // INPUT:    string storing email
     // TASK:     Check if the email that the user provides
     //           is the same as the one that is stored.
@@ -657,6 +738,64 @@ public class DBConnector {
             System.out.print("Error " + e);
         }
         return false;
+    }
+
+    // INPUT:    integer storing userID
+    // TASK:     Check if the user is an admin account
+    // OUTPUT:   boolean if user is an admin account
+    public boolean isAdmin(int ID)
+    {
+        try
+        {
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+
+            stmt = conn.createStatement();
+            String myQuery = "SELECT adminAccount FROM User_T WHERE userID = \"" + ID + "\"";
+            ResultSet rs = stmt.executeQuery(myQuery);
+
+            while (rs.next())
+            {
+                boolean admin = rs.getBoolean(0);
+                return admin;
+            }
+        }
+        catch (SQLException se)
+        {
+            se.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            System.out.print("Error " + e);
+        }
+        return false;
+    }
+
+	public void generateReportToFile(String filename) {
+        try {
+            FileWriter fw = new FileWriter(filename);
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            stmt = conn.createStatement();
+            String query = "SELECT email, ((COUNT(*) DIV 5)*1000) FROM Login_T, Exercise_T" +
+                    " WHERE Login_T.userID = Exercise_T.userID " +
+                    " AND time >= (DATE(NOW() - INTERVAL 1 WEEK) + INTERVAL 0 SECOND)" +
+                    " GROUP BY Exercise_T.userID;";
+            ResultSet result = stmt.executeQuery(query);
+            fw.append("Email,Wellbucks\n");
+            while (result.next()) {
+                fw.append(result.getString(1));
+                fw.append(",");
+                fw.append(Integer.toString(result.getInt(2)));
+                fw.append(",");
+                fw.append("\n");
+            }
+            fw.close();
+            conn.close();
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (IOException ie) {
+            System.out.print(ie);
+        }
     }
 
 }
