@@ -28,7 +28,10 @@
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="-2.0" layoutY="549.0" maxHeight="46.0" maxWidth="1079.0" minHeight="46.0" minWidth="1079.0" prefHeight="46.0" prefWidth="1079.0" style="-fx-background-color: #373333 #373333;" />
+      <Pane layoutX="-2.0" layoutY="549.0" maxHeight="46.0" maxWidth="1079.0" minHeight="46.0" minWidth="1079.0" prefHeight="46.0" prefWidth="1079.0" style="-fx-background-color: #373333 #373333;">
+         <children>
+            <Button fx:id="report_button" layoutX="488.0" layoutY="11.0" mnemonicParsing="false" onAction="#generateReport" text="Generate Report" />
+         </children></Pane>
       <TabPane fx:id="home_tab_pane" layoutX="-4.0" layoutY="58.0" maxHeight="491.0" maxWidth="1079.0" minHeight="491.0" minWidth="1079.0" prefHeight="491.0" prefWidth="1079.0" side="LEFT" style="-fx-background-color: #A2A2A2;" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="150.0" tabMaxWidth="150.0" tabMinHeight="150.0" tabMinWidth="102.0">
         <tabs>
           <Tab fx:id="reminders_tab">

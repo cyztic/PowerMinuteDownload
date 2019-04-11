@@ -37,7 +37,9 @@ public class ProfileController  implements Initializable {
 
             //set it to partner in database with db connector
             db_connector.addAccountabilityPartner(id);
-
+            partner_id_label.setText("Partner's ID: " + id);
+            partner_id_label.setAlignment(Pos.CENTER);
+            add_partner_textfield.setText("");
         }
     }
 
@@ -54,15 +56,14 @@ public class ProfileController  implements Initializable {
 
         //set user well bucks
         int wellbucks = 0;
-        int powerMinutes = db_connector.getUserTotalAccepted();
-        if(0 == powerMinutes % 5){
-            wellbucks = (powerMinutes / 5) * 1000;
-        } else if( 0 != powerMinutes % 5){
+        int powerMinutes = db_connector.getUserWeeklyAccepted();
+        //check if its modulo 5, if not then subtract the remainder
+        if( 0 != (powerMinutes % 5))
             powerMinutes = powerMinutes - (powerMinutes % 5);
-            wellbucks = (powerMinutes / 5) * 1000;
-        }
+        //calculate wellbucks
+        wellbucks = (powerMinutes / 5) * 1000;
 
-        user_wellbucks_label.setText("Wellbucks earned: " + Integer.toString(wellbucks));
+        user_wellbucks_label.setText("Wellbucks earned: " + wellbucks);
         user_wellbucks_label.setAlignment(Pos.CENTER);
 
         //set id label to users ID

@@ -104,6 +104,8 @@ public class HomePageController implements Initializable {
     private Label current_level_label, fav_quote_label, recent_quote_label;
     @FXML
     private ComboBox<String> fav_quote_combobox;
+    @FXML
+    private Button report_button;
 
     //*********************************CLASS METHODS******************************************
     // INPUT:    none
@@ -675,6 +677,13 @@ public class HomePageController implements Initializable {
         video_tab_pane.setLeftAnchor(video_pagination, 10.0);
     }
 
+    private void checkIfAdmin(){
+       if(!db_connector.isAdmin()){
+           report_button.setText("");
+           report_button.setVisible(false);
+       }
+    }
+
 //*********************************FXML METHODS******************************************
 
     // INPUT:    nothing
@@ -702,6 +711,10 @@ public class HomePageController implements Initializable {
                     out.println(hour_of_day_array[i]);
                 }
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Reminders Saved");
+            alert.setHeaderText("Reminders Saved");
+            alert.showAndWait();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -783,6 +796,14 @@ public class HomePageController implements Initializable {
         }
     }
 
+    @FXML
+    private void generateReport(){
+        db_connector.generateReportToFile("resources/LUWellBucks.txt");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Report Generated");
+        alert.setHeaderText("Report Generated");
+        alert.showAndWait();
+    }
 
     @FXML
     private void openProfile() {
@@ -797,7 +818,7 @@ public class HomePageController implements Initializable {
         //set icon image
         javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
         primaryStage.getIcons().add(iconImage);
-        primaryStage.setScene(new Scene(root, 300, 260));
+        primaryStage.setScene(new Scene(root, 300, 205));
         primaryStage.show();
     }
 
@@ -830,6 +851,9 @@ public class HomePageController implements Initializable {
 
         //create pagination
         createPagination();
+
+        //check if admin to show or hide the button to generate report
+        checkIfAdmin();
 
         //used for testing reminders -- delete when done
         //createPopUpReminder(10000);

@@ -743,7 +743,7 @@ public class DBConnector {
     // INPUT:    integer storing userID
     // TASK:     Check if the user is an admin account
     // OUTPUT:   boolean if user is an admin account
-    public boolean isAdmin(int ID)
+    public boolean isAdmin()
     {
         try
         {
@@ -751,12 +751,12 @@ public class DBConnector {
 
 
             stmt = conn.createStatement();
-            String myQuery = "SELECT adminAccount FROM User_T WHERE userID = \"" + ID + "\"";
+            String myQuery = "SELECT adminAccount FROM User_T WHERE userID = " + USER_ID;
             ResultSet rs = stmt.executeQuery(myQuery);
 
             while (rs.next())
             {
-                boolean admin = rs.getBoolean(0);
+                boolean admin = rs.getBoolean(1);
                 return admin;
             }
         }
@@ -781,13 +781,15 @@ public class DBConnector {
                     " AND time >= (DATE(NOW() - INTERVAL 1 WEEK) + INTERVAL 0 SECOND)" +
                     " GROUP BY Exercise_T.userID;";
             ResultSet result = stmt.executeQuery(query);
-            fw.append("Email,Wellbucks\n");
+            fw.append("Email  Wellbucks");
+            fw.append(System.getProperty("line.separator"));
+
             while (result.next()) {
                 fw.append(result.getString(1));
-                fw.append(",");
+                fw.append("  ");
                 fw.append(Integer.toString(result.getInt(2)));
-                fw.append(",");
-                fw.append("\n");
+                fw.append("  ");
+                fw.append(System.getProperty("line.separator"));
             }
             fw.close();
             conn.close();
