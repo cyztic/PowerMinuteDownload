@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -35,11 +36,20 @@ public class ProfileController  implements Initializable {
             //get id from text field
             int id = Integer.parseInt(add_partner_textfield.getText());
 
-            //set it to partner in database with db connector
-            db_connector.addAccountabilityPartner(id);
-            partner_id_label.setText("Partner's ID: " + id);
-            partner_id_label.setAlignment(Pos.CENTER);
-            add_partner_textfield.setText("");
+            if(id != db_connector.getUSER_ID()) {
+
+                //set it to partner in database with db connector
+                db_connector.addAccountabilityPartner(id);
+                partner_id_label.setText("Partner's ID: " + id);
+                partner_id_label.setAlignment(Pos.CENTER);
+                add_partner_textfield.setText("");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Unable to add partner");
+                alert.setHeaderText(null);
+                alert.setContentText("You cannot set yourself as your partner");
+                alert.showAndWait();
+            }
         }
     }
 

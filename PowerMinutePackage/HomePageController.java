@@ -798,7 +798,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void generateReport(){
-        db_connector.generateReportToFile("resources/LUWellBucks.txt");
+        db_connector.generateReportToFile("resources/LUWellBucks.csv");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Report Generated");
         alert.setHeaderText("Report Generated");

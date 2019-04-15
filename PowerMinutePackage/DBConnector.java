@@ -781,15 +781,14 @@ public class DBConnector {
                     " AND time >= (DATE(NOW() - INTERVAL 1 WEEK) + INTERVAL 0 SECOND)" +
                     " GROUP BY Exercise_T.userID;";
             ResultSet result = stmt.executeQuery(query);
-            fw.append("Email  Wellbucks");
-            fw.append(System.getProperty("line.separator"));
+            fw.append("Email, Wellbucks\n");
 
             while (result.next()) {
                 fw.append(result.getString(1));
-                fw.append("  ");
+                fw.append(",");
                 fw.append(Integer.toString(result.getInt(2)));
-                fw.append("  ");
-                fw.append(System.getProperty("line.separator"));
+                fw.append(",");
+                fw.append("\n");
             }
             fw.close();
             conn.close();
