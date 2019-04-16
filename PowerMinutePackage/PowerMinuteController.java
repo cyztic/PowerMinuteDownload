@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaView;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -32,46 +33,27 @@ public class PowerMinuteController implements Initializable {
 
     //*********************************GLOBAL VARIABLES******************************************
 
-    private MediaPlayer media_player;
-    private Media video_media;
-    private MediaView media_view;
+    private Videos video_retriever = Videos.getInstance();
 
     //********************************GLOBAL FXML CONTROLS***************************************
     @FXML
-    private Pane holder_pane;
+    private Button exit;
+
+    @FXML
+    private WebView web_view;
     //*********************************FXML METHODS******************************************
 
-    //@FXML
+    @FXML
     private void quit(){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Power Minute Completed");
-        alert.setHeaderText(null);
-        alert.setContentText("Great Job!");
-        alert.showAndWait();
-
-        Stage stage = (Stage) holder_pane.getScene().getWindow();
+        web_view.getEngine().load(null);
+        Stage stage = (Stage) exit.getScene().getWindow();
         stage.close();
-        media_player.stop();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String path = "resources/test.mp4";
 
-        video_media = new Media(new File(path).toURI().toString());
-
-        media_player = new MediaPlayer(video_media);
-
-        media_view = new MediaView(media_player);
-
-        media_view.setFitHeight(600);
-        media_view.setFitWidth(880);
-
-        media_player.setAutoPlay(true);
-        media_player.setCycleCount(1);
-        media_player.setOnEndOfMedia(() -> quit());
-
-        holder_pane.getChildren().addAll(media_view);
+        web_view.getEngine().load(video_retriever.getRandomVideo());
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.scene.image.*?>
 <?import java.net.*?>
 <?import java.lang.*?>
@@ -367,7 +368,10 @@
             </Tab>
             <Tab fx:id="videos_tab">
               <content>
-                <AnchorPane fx:id="video_tab_pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane fx:id="video_tab_pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <WebView fx:id="web_view" layoutX="8.0" layoutY="10.0" prefHeight="472.0" prefWidth="906.0" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>

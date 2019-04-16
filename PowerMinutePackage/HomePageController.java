@@ -30,6 +30,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -64,11 +65,6 @@ public class HomePageController implements Initializable {
     int fav_quote_index;
     //remainder of total powerminutes%20
     int remainder;
-
-    //video page
-    String[] image_file_names;
-    String[] video_file_names;
-    private Pagination video_pagination;
 
 //********************************GLOBAL FXML CONTROLS******************************************
 
@@ -106,6 +102,8 @@ public class HomePageController implements Initializable {
     private ComboBox<String> fav_quote_combobox;
     @FXML
     private Button report_button;
+    @FXML
+    private WebView web_view;
 
     //*********************************CLASS METHODS******************************************
     // INPUT:    none
@@ -589,93 +587,6 @@ public class HomePageController implements Initializable {
         }
     }
 
-    // INPUT:   event, integer holding current index
-    //          of pagination
-    // TASK:    opens VideoViewerFXML with video file
-    //          name at current index.
-    // CALLED:  in createPage()
-    // OUTPUT:  none
-    private void openVideo(Event e, int index) {
-
-        FXMLLoader loader = null;
-        Stage myStage = new Stage();
-        Scene myScene;
-        try {
-            loader = new FXMLLoader(getClass().getResource("VideoViewerFXML.fxml"));
-            loader.setController(new VideoViewerController(video_file_names[index]));
-            myScene = new Scene(loader.load());
-        } catch (Exception e1) {
-            System.out.println("Something went wrong while building new fxml!!!!!!");
-            System.out.println(e1);
-            return;
-        }
-        myStage.setTitle("Power Minute");
-        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
-        myStage.getIcons().add(iconImage);
-        myStage.initStyle(StageStyle.UNDECORATED);
-        myStage.setScene(myScene);
-        myStage.show();
-    }
-
-    // INPUT:   integer holding current index of
-    //          pagination
-    // TASK:    opens creates new page for
-    //          pagination with the image file
-    //          name at current index.
-    // CALLED:  in createPagination()
-    // OUTPUT:  Pane to put in pagination
-    private Pane createPage(int pageIndex) {
-        File file = new File(image_file_names[pageIndex]);
-        Image image = new Image(file.toURI().toString());
-        ImageView iv = new ImageView(image);
-        iv.setOnMouseClicked(e -> openVideo(e, pageIndex));
-        //iv.setFitWidth(600);
-        iv.setPreserveRatio(true);
-        iv.setSmooth(true);
-        iv.setCache(true);
-        Pane pageBox = new Pane();
-        pageBox.setMinWidth(922.0);
-        pageBox.setMinHeight(490.0);
-        //pageBox.
-        pageBox.getChildren().add(iv);
-        return pageBox;
-    }
-
-    // INPUT:   none
-    // TASK:    creates the pagination control
-    //          and then sets each page to a
-    //          picture of video.
-    // CALLED:  in initialize()
-    // OUTPUT:  none
-    private void createPagination() {
-        image_file_names = new String[6];
-        image_file_names[0] = "resources/bunny.png";
-        image_file_names[1] = "resources/jellyfish.png";
-        image_file_names[2] = "resources/small.png";
-        image_file_names[3] = "resources/bunny.png";
-        image_file_names[4] = "resources/jellyfish.png";
-        image_file_names[5] = "resources/small.png";
-
-        video_file_names = new String[6];
-        video_file_names[0] = "resources/test.mp4";
-        video_file_names[1] = "resources/jellyfish.mp4";
-        video_file_names[2] = "resources/small.mp4";
-        video_file_names[3] = "resources/test.mp4";
-        video_file_names[4] = "resources/jellyfish.mp4";
-        video_file_names[5] = "resources/small.mp4";
-
-        video_pagination = new Pagination(6, 0);
-        video_pagination.getStyleClass().add(Pagination.STYLE_CLASS_BULLET);
-        //video_pagination.setMinWidth(922);
-        //video_pagination.setMinHeight(490);
-        video_pagination.setPageFactory((Integer pageIndex) -> createPage(pageIndex));
-        video_pagination.setMinWidth(922);
-        video_tab_pane.getChildren().addAll(video_pagination);
-        video_tab_pane.setTopAnchor(video_pagination, 10.0);
-        video_tab_pane.setRightAnchor(video_pagination, 10.0);
-        video_tab_pane.setBottomAnchor(video_pagination, 10.0);
-        video_tab_pane.setLeftAnchor(video_pagination, 10.0);
-    }
 
     private void checkIfAdmin(){
        if(!db_connector.isAdmin()){
@@ -849,11 +760,10 @@ public class HomePageController implements Initializable {
         //read in the fav quote index
         readInFavQuoteIndex();
 
-        //create pagination
-        createPagination();
-
         //check if admin to show or hide the button to generate report
         checkIfAdmin();
+
+        web_view.getEngine().load("https://www.youtube.com/channel/UC1WfEAP4fLr3A0jeY_CZHSg/videos");
 
         //used for testing reminders -- delete when done
         //createPopUpReminder(10000);
