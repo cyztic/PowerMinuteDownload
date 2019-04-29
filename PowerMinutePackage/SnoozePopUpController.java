@@ -8,26 +8,14 @@
 
 package PowerMinutePackage;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class SnoozePopUpController {
 
@@ -66,6 +54,8 @@ public class SnoozePopUpController {
             e.printStackTrace();
         }
         primaryStage.setTitle("Power Minute");
+        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/PNG_Icon.png");
+        primaryStage.getIcons().add(iconImage);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root, 906, 520));
         primaryStage.show();

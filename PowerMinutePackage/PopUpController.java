@@ -68,7 +68,7 @@ public class PopUpController {
             e.printStackTrace();
         }
         primaryStage.setTitle("Power Minute");
-        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
+        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/PNG_Icon.png");
         primaryStage.getIcons().add(iconImage);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root, 906, 520));
@@ -123,7 +123,7 @@ public class PopUpController {
                     }
                     myStage.setScene(myScene);
                     //set icon image
-                    Image iconImage = new Image("resources/test.png");
+                    Image iconImage = new Image("resources/PNG_Icon.png");
                     myStage.getIcons().add(iconImage);
                     myStage.initStyle(StageStyle.UNDECORATED);
                     myStage.initModality(Modality.APPLICATION_MODAL);

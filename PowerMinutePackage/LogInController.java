@@ -18,11 +18,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -61,7 +59,7 @@ public class LogInController implements Initializable {
 
             //get image from file system
             try {
-                InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("resources/test.png");
+                InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("resources/PNG_TrayIcon.png");
                 tray_image = ImageIO.read(is);
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -162,7 +160,7 @@ public class LogInController implements Initializable {
                 }
                 primaryStage.setTitle("Power Minute");
                 //set icon image
-                javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
+                javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/PNG_Icon.png");
                 primaryStage.getIcons().add(iconImage);
                 primaryStage.setResizable(false);
                 primaryStage.setScene(new Scene(root, 1065, 582));
@@ -210,7 +208,7 @@ public class LogInController implements Initializable {
         }
         primaryStage.setTitle("Sign up");
         //set icon image
-        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
+        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/PNG_Icon.png");
         primaryStage.getIcons().add(iconImage);
         primaryStage.setScene(new Scene(root, 651, 710));
         primaryStage.show();

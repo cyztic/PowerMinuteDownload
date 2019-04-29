@@ -8,7 +8,7 @@
 
 package PowerMinutePackage;
 
-import javafx.event.Event;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -20,16 +20,12 @@ import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -37,7 +33,6 @@ import javafx.stage.StageStyle;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.PieChart;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 
@@ -92,8 +87,7 @@ public class HomePageController implements Initializable {
             thur_4_checkbox, thur_5_checkbox, fri_7_checkbox, fri_8_checkbox, fri_9_checkbox, fri_10_checkbox,
             fri_11_checkbox, fri_12_checkbox, fri_1_checkbox, fri_2_checkbox, fri_3_checkbox,
             fri_4_checkbox, fri_5_checkbox;
-    @FXML
-    private AnchorPane video_tab_pane;
+
     @FXML
     private ProgressBar level_bar;
     @FXML
@@ -488,11 +482,12 @@ public class HomePageController implements Initializable {
                 reminderCalendar.set(Calendar.DAY_OF_MONTH, currentDayCalendar.get(Calendar.DAY_OF_MONTH));
                 reminderCalendar.set(Calendar.YEAR, currentDayCalendar.get(Calendar.YEAR));
                 //get difference between current time and reminder time
-                Long delay = reminderCalendar.getTimeInMillis() - currentDayCalendar.getTimeInMillis();
+                long reminderInMillis = reminderCalendar.getTimeInMillis();
+                long delay = reminderCalendar.getTimeInMillis() - currentDayCalendar.getTimeInMillis();
                 //if delay is greater than 0 then we know the time
                 //is still gonna happen today so we can set the reminder
                 if (delay > 0) {
-                    createPopUpReminder(delay);
+                    createPopUpReminder(delay, reminderInMillis);
                     System.out.println("difference in millis: " + delay);
                     System.out.println("SET A REMINDER FOR: " + newHourInt);
                 }
@@ -527,7 +522,9 @@ public class HomePageController implements Initializable {
     //          pop ups on specified time
     // CALLED:  in readInReminders()
     // OUTPUT:  none
-    private void createPopUpReminder(long delay) {
+    private void createPopUpReminder(long delay, long reminderInMillis) {
+
+
         //Scheduled executor service to run the pop up every hour
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         schedule_service_list.add(ses);
@@ -536,35 +533,47 @@ public class HomePageController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                    FXMLLoader loader = null;
-                    Stage myStage = new Stage();
-                    Scene myScene;
-                    try {
-                        loader = new FXMLLoader(getClass().getResource("PopUpFXML.fxml"));
-                        //loader.setController(new Notification());
-                        myScene = new Scene(loader.load());
-                    } catch (Exception e) {
-                        System.out.println("Something went wrong while building new fxml");
-                        System.out.println(e);
-                        return;
+
+                    // get the difference in the current time and when the reminders
+                    // was supposed to go off
+                    Long delay = db_connector.getCurrentTimeInMillis() - reminderInMillis;
+
+                    if (delay > 60000) {
+                        //if the time is off on reminder then dont show pop
+                        //and delete all scheduled pop ups and re read them in
+                        cancelPopUpReminder();
+                        readInReminders();
+                    } else {
+                        FXMLLoader loader = null;
+                        Stage myStage = new Stage();
+                        Scene myScene;
+                        try {
+                            loader = new FXMLLoader(getClass().getResource("PopUpFXML.fxml"));
+                            //loader.setController(new Notification());
+                            myScene = new Scene(loader.load());
+                        } catch (Exception e) {
+                            System.out.println("Something went wrong while building new fxml");
+                            System.out.println(e);
+                            return;
+                        }
+                        myStage.setScene(myScene);
+                        //set icon image
+                        Image iconImage = new Image("resources/PNG_Icon.png");
+                        myStage.getIcons().add(iconImage);
+                        myStage.initStyle(StageStyle.UNDECORATED);
+                        myStage.initModality(Modality.APPLICATION_MODAL);
+                        myStage.setResizable(false);
+
+                        //get visual bounds of the screen
+                        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+                        //set Stage boundaries to the lower right corner of the visible bounds of the main screen
+                        myStage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 550);
+                        myStage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 200);
+                        myStage.setWidth(550);
+                        myStage.setHeight(200);
+                        myStage.showAndWait();
                     }
-                    myStage.setScene(myScene);
-                    //set icon image
-                    Image iconImage = new Image("file:test.png");
-                    myStage.getIcons().add(iconImage);
-                    myStage.initStyle(StageStyle.UNDECORATED);
-                    myStage.initModality(Modality.APPLICATION_MODAL);
-                    myStage.setResizable(false);
-
-                    //get visual bounds of the screen
-                    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-                    //set Stage boundaries to the lower right corner of the visible bounds of the main screen
-                    myStage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 550);
-                    myStage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 200);
-                    myStage.setWidth(550);
-                    myStage.setHeight(200);
-                    myStage.showAndWait();
                 });
             }
         }, delay, TimeUnit.MILLISECONDS);
@@ -707,6 +716,9 @@ public class HomePageController implements Initializable {
         }
     }
 
+    // INPUT:   on action for generate report button
+    // TASK:    calls db connector generate report method
+    // OUTPUT:  none
     @FXML
     private void generateReport(){
         db_connector.generateReportToFile("resources/LUWellBucks.csv");
@@ -716,6 +728,10 @@ public class HomePageController implements Initializable {
         alert.showAndWait();
     }
 
+    // INPUT:   none
+    // TASK:    on action for the profile picture.
+    //          opens up the profile page
+    // OUTPUT:  none
     @FXML
     private void openProfile() {
         Stage primaryStage = new Stage();
@@ -727,7 +743,7 @@ public class HomePageController implements Initializable {
         }
         primaryStage.setTitle("Profile");
         //set icon image
-        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/test.png");
+        javafx.scene.image.Image iconImage = new javafx.scene.image.Image("resources/PNG_Icon.png");
         primaryStage.getIcons().add(iconImage);
         primaryStage.setScene(new Scene(root, 300, 205));
         primaryStage.show();
@@ -763,11 +779,7 @@ public class HomePageController implements Initializable {
         //check if admin to show or hide the button to generate report
         checkIfAdmin();
 
+        //sets the videos tab webview to the youtube channel videos
         web_view.getEngine().load("https://www.youtube.com/channel/UC1WfEAP4fLr3A0jeY_CZHSg/videos");
-
-        //used for testing reminders -- delete when done
-        //createPopUpReminder(10000);
-        //createPopUpReminder(30000);
-        //createPopUpReminder(50000);
     }
 }

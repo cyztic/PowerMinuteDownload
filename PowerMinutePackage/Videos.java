@@ -15,11 +15,18 @@ public class Videos {
     int random_number;
 
     //*********************************CLASS METHODS******************************************
+
+    // INPUT:   none
+    // TASK:    constructor of class
+    // OUTPUT:  none
     public Videos(){
         random_generator = new Random();
         readInVideos();
     }
 
+    // INPUT:   none
+    // TASK:    returns the static object
+    // OUTPUT:  video class object
     public static Videos getInstance(){
         if(null == video_retriever)
             video_retriever = new Videos();
@@ -27,6 +34,9 @@ public class Videos {
         return video_retriever;
     }
 
+    // INPUT:   none
+    // TASK:    reads in all the video links from the file
+    // OUTPUT:  none
     public void readInVideos(){
         try {
             //Read items from txt File
@@ -41,6 +51,10 @@ public class Videos {
         }
     }
 
+    // INPUT:   none
+    // TASK:    uses a random number generator to select a video
+    //          to display for the power minute
+    // OUTPUT:  string with video url
     public String getRandomVideo(){
         //get a random number from 0 to the size of the array
         random_number = random_generator.nextInt(videos_array.size());

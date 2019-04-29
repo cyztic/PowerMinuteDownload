@@ -3,7 +3,6 @@ package PowerMinutePackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -52,6 +51,7 @@ public class ProfileController  implements Initializable {
             }
         }
     }
+
 
     // INPUT:   url and Resource Bundle
     // TASK:    called when class is started, this makes it where we

@@ -21,11 +21,8 @@ public class Main extends Application {
 
         //start up the connection to database here:
         String user = "stretchpp";
-        //String user = "root";
         String pass = "stretchpp";
-        //String pass = "Mancity22!";
         String url = "jdbc:mysql://lindenwoodcshome.ddns.net/stretchpp?useLegacyDatetimeCode=false&serverTimezone=America/Chicago";
-        //String url = "jdbc:mysql://localhost/stretchpp";
         // Create the database connection.
         DBConnector db = DBConnector.getInstance();
         db.setDBInfo(url, user, pass);
@@ -33,13 +30,13 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("LogInFXML.fxml"));
         primaryStage.setTitle("Log In");
         //set icon image
-        Image iconImage = new Image("resources/test.png");
+        Image iconImage = new Image("resources/PNG_Icon.png");
         primaryStage.getIcons().add(iconImage);
         //set to not resizable
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 838, 455));
         primaryStage.show();
-
+    //test
 
     }
 

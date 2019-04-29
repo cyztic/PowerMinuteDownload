@@ -43,7 +43,7 @@ public class DBConnector {
     // TASK:     sets the member variabls to the correct db
     //           information.
     // OUTPUT:   none
-    public void setDBInfo(String DBUrl, String DBUsername, String DBPassword){
+    public void setDBInfo(String DBUrl, String DBUsername, String DBPassword) {
         URL = DBUrl;
         USERNAME = DBUsername;
         PASSWORD = DBPassword;
@@ -61,8 +61,8 @@ public class DBConnector {
     //           1 single instance created of this class.
     //           This makes sure the class is a singleton.
     // OUTPUT:   DBConnector object
-    public static DBConnector getInstance(){
-        if(null == db_connector)
+    public static DBConnector getInstance() {
+        if (null == db_connector)
             db_connector = new DBConnector();
 
         return db_connector;
@@ -437,11 +437,9 @@ public class DBConnector {
     //           the login and user tables.
     // OUTPUT:   boolean determining whether the sign up
     //           was successful or not.
-    public boolean userSignUp(String email, String pass, String fname, String lname)
-    {
+    public boolean userSignUp(String email, String pass, String fname, String lname) {
         // Insert the new user into Login_T.
-        if (insertLoginT(email, pass))
-        {
+        if (insertLoginT(email, pass)) {
             // Get the new user's ID.
             int ID = getUserID(email);
             // Insert the new user into User_T.
@@ -449,8 +447,7 @@ public class DBConnector {
 
             // Return true if the new user was inserted into both tables.
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -458,8 +455,7 @@ public class DBConnector {
     // TASK:     Check the user's login information.
     // OUTPUT:   int determining whether the sign in
     //           info matched a users or not. -1 == false
-    public int userSignIn(String email, String pass)
-    {
+    public int userSignIn(String email, String pass) {
         // Check if valid email and password are valid, return the userID.
         if (checkEmail(email) && checkPW(email, pass)) {
             //set user ID for future use
@@ -476,17 +472,15 @@ public class DBConnector {
     // TASK:     Insert the new user's information into the login table.
     // OUTPUT:   boolean true if it insertion worked, false
     //           if insertion failed.
-    public boolean insertLoginT(String email, String pass)
-    {
-        try
-        {
+    public boolean insertLoginT(String email, String pass) {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             // Check if the email is already set up.
             if (checkEmail(email))
                 return false;
 
             stmt = conn.createStatement();
-            String myQuery = "INSERT INTO Login_T VALUES (null, " + "\"" + email +"\""
+            String myQuery = "INSERT INTO Login_T VALUES (null, " + "\"" + email + "\""
                     + ", " + "\"" + pass + "\")";
             System.out.println("Query: " + myQuery);
 
@@ -496,13 +490,11 @@ public class DBConnector {
             return true;
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
 
@@ -514,26 +506,22 @@ public class DBConnector {
     // TASK:     Insert the new user's information into the user table.
     // OUTPUT:   boolean true if it insertion worked, false
     //           if insertion failed.
-    public void insertUserT(int ID, String fname, String lname)
-    {
-        try
-        {
+    public void insertUserT(int ID, String fname, String lname) {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
-            String myQuery = "INSERT INTO User_T VALUES ("+ ID + ", \"" + fname +"\""
+            String myQuery = "INSERT INTO User_T VALUES (" + ID + ", \"" + fname + "\""
                     + ", " + "\"" + lname + "\"" + ", null, 0)";
             System.out.println("Query: " + myQuery);
             stmt.execute(myQuery);
             System.out.println("Done.");
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
     }
@@ -542,7 +530,7 @@ public class DBConnector {
     // TASK:     get the member variable storing user id
     //           this is for getting id outside of class.
     // OUTPUT:   integer storing user id
-    public int getUSER_ID(){
+    public int getUSER_ID() {
         return USER_ID;
     }
 
@@ -550,12 +538,10 @@ public class DBConnector {
     // TASK:     get the user id from the database
     //           table.
     // OUTPUT:   integer storing user id, -1 if none
-    public int getUserID(String email)
-    {
+    public int getUserID(String email) {
         int ID = -1;
 
-        try
-        {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -566,20 +552,17 @@ public class DBConnector {
 
             ResultSet rs = stmt.executeQuery(myQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 ID = rs.getInt("userID");
             }
 
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
 
@@ -587,15 +570,46 @@ public class DBConnector {
         return ID;
     }
 
+    // INPUT:
+    // TASK:
+    // OUTPUT:
+    public long getCurrentTimeInMillis() {
+        long time = -1;
+
+        try {
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            stmt = conn.createStatement();
+            String myQuery = "SELECT ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)";
+
+            stmt.execute(myQuery);
+
+            ResultSet rs = stmt.executeQuery(myQuery);
+
+            while (rs.next()) {
+                time = rs.getLong(1);
+            }
+        }
+        // Handle SQL errors.
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
+        // Handle any other errors.
+        catch (Exception e) {
+            System.out.print("Error " + e);
+        }
+
+        // Return the user's ID.
+        return time;
+    }
+
     // INPUT:    none
     // TASK:     get the user first name
     // OUTPUT:   string storing first name
-    public String getUsersFirstName()
-    {
+    public String getUsersFirstName() {
         String name = "";
 
-        try
-        {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -606,20 +620,17 @@ public class DBConnector {
 
             ResultSet rs = stmt.executeQuery(myQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 name = rs.getString("firstName");
             }
 
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
 
@@ -630,12 +641,10 @@ public class DBConnector {
     // INPUT:    none
     // TASK:     get the user first name
     // OUTPUT:   string storing first name
-    public String getUsersLastName()
-    {
+    public String getUsersLastName() {
         String name = "";
 
-        try
-        {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -646,34 +655,30 @@ public class DBConnector {
 
             ResultSet rs = stmt.executeQuery(myQuery);
 
-            while(rs.next())
-            {
+            while (rs.next()) {
                 name = rs.getString("lastName");
             }
 
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
 
         // Return the user's ID.
         return name;
     }
+
     // INPUT:    string storing email
     // TASK:     Check if the email that the user provides
     //           is the same as the one that is stored.
     // OUTPUT:   boolean if email is correct
-    public boolean checkEmail(String email)
-    {
-        try
-        {
+    public boolean checkEmail(String email) {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -683,22 +688,19 @@ public class DBConnector {
             ResultSet rs = stmt.executeQuery(myQuery);
 
             int dup = 0;
-            while(rs.next())
-            {
+            while (rs.next()) {
                 dup = rs.getInt("duplicates");
             }
 
-            if (dup  > 0)
+            if (dup > 0)
                 return true;
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
         return false;
@@ -708,10 +710,8 @@ public class DBConnector {
     // TASK:     Check if the password that the user provides
     //           is the same as the one that is stored.
     // OUTPUT:   boolean if pw is correct
-    public boolean checkPW(String email, String pass)
-    {
-        try
-        {
+    public boolean checkPW(String email, String pass) {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -720,21 +720,18 @@ public class DBConnector {
             ResultSet rs = stmt.executeQuery(myQuery);
 
             String hashedPass = "";
-            while(rs.next())
-            {
+            while (rs.next()) {
                 hashedPass = rs.getString("password");
             }
             // Return if the password matched the stored password.
             return BCrypt.checkpw(pass, hashedPass);
         }
         // Handle SQL errors.
-        catch (SQLException se)
-        {
+        catch (SQLException se) {
             se.printStackTrace();
         }
         // Handle any other errors.
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.print("Error " + e);
         }
         return false;
@@ -743,10 +740,8 @@ public class DBConnector {
     // INPUT:    integer storing userID
     // TASK:     Check if the user is an admin account
     // OUTPUT:   boolean if user is an admin account
-    public boolean isAdmin()
-    {
-        try
-        {
+    public boolean isAdmin() {
+        try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
 
@@ -754,24 +749,22 @@ public class DBConnector {
             String myQuery = "SELECT adminAccount FROM User_T WHERE userID = " + USER_ID;
             ResultSet rs = stmt.executeQuery(myQuery);
 
-            while (rs.next())
-            {
+            while (rs.next()) {
                 boolean admin = rs.getBoolean(1);
                 return admin;
             }
-        }
-        catch (SQLException se)
-        {
+        } catch (SQLException se) {
             se.printStackTrace();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.print("Error " + e);
         }
         return false;
     }
 
-	public void generateReportToFile(String filename) {
+    // INPUT:    String containing the filename
+    // TASK:     export wellbucks data to csv file
+    // OUTPUT:   Nothing.
+    public void generateReportToFile(String filename) {
         try {
             FileWriter fw = new FileWriter(filename);
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
