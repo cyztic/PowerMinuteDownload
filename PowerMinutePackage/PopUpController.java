@@ -11,6 +11,8 @@ package PowerMinutePackage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,11 +27,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class PopUpController {
+public class PopUpController implements Initializable {
 
     //*********************************GLOBAL VARIABLES******************************************
     //get database connector singleton object for this class
@@ -143,4 +147,33 @@ public class PopUpController {
         }, 600000, TimeUnit.MILLISECONDS);
     }
 
+    // INPUT:   none
+    // TASK:    pop up timeouts after 15 min
+    //          if it times out it counts as a decline
+    // OUTPUT:  none
+    void timeout(){
+        //Scheduled executor service to run the pop up every hour
+        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+
+        ses.schedule(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+
+                    decline();
+
+                });
+            }
+        }, 900000, TimeUnit.MILLISECONDS);
+    }
+
+    // INPUT:   url and Resource Bundle
+    // TASK:    called when class is started, this makes it where we
+    //          can call functions and perform actions when the controller
+    //          is first called.
+    // OUTPUT:  none
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        timeout();
+    }
 }

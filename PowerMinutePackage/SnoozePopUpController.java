@@ -8,16 +8,28 @@
 
 package PowerMinutePackage;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class SnoozePopUpController {
+public class SnoozePopUpController implements Initializable {
 
     //*********************************GLOBAL VARIABLES******************************************
     //get database connector singleton object for this class
@@ -74,5 +86,35 @@ public class SnoozePopUpController {
 
         Stage stage = (Stage) decline_button.getScene().getWindow();
         stage.close();
+    }
+
+    // INPUT:   none
+    // TASK:    pop up timeouts after 15 min
+    //          if it times out it counts as a decline
+    // OUTPUT:  none
+    void timeout(){
+        //Scheduled executor service to run the pop up every hour
+        ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+
+        ses.schedule(new Runnable() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+
+                    decline();
+
+                });
+            }
+        }, 900000, TimeUnit.MILLISECONDS);
+    }
+
+    // INPUT:   url and Resource Bundle
+    // TASK:    called when class is started, this makes it where we
+    //          can call functions and perform actions when the controller
+    //          is first called.
+    // OUTPUT:  none
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        timeout();
     }
 }

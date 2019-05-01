@@ -769,17 +769,28 @@ public class DBConnector {
             FileWriter fw = new FileWriter(filename);
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             stmt = conn.createStatement();
-            String query = "SELECT email, ((COUNT(*) DIV 5)*1000) FROM Login_T, Exercise_T" +
-                    " WHERE Login_T.userID = Exercise_T.userID " +
-                    " AND time >= (DATE(NOW() - INTERVAL 1 WEEK) + INTERVAL 0 SECOND)" +
-                    " GROUP BY Exercise_T.userID;";
-            ResultSet result = stmt.executeQuery(query);
-            fw.append("Email, Wellbucks\n");
+			
+	    // Get the email, first name, last name, and 1000 wellbucks for each 5 workouts
+       	    String query = " SELECT email, firstName, lastName, ((COUNT(*) DIV 5)*1000) " + 
+			     " FROM Login_T, User_T, Exercise_T " + 
+		             " WHERE Login_T.userID = Exercise_T.userID " + 
+		             " AND Exercise_T.userID = User_T.userID " + 
+			     " AND Login_T.userID = User_T.userID " + 
+			     " AND time >= (DATE(NOw() - INTERVAL 1 WEEK) + INTERVAL 0 SECOND) " +
+		  	     " GROUP BY Exercise_T.userID;";
 
+            ResultSet result = stmt.executeQuery(query);
+			
+	    // Add the data to the csv file
+            fw.append("Email, First Name, Last Name, Wellbucks\n");
             while (result.next()) {
                 fw.append(result.getString(1));
                 fw.append(",");
-                fw.append(Integer.toString(result.getInt(2)));
+		fw.append(result.getString(2));
+                fw.append(",");
+		fw.append(result.getString(3));
+                fw.append(",");
+                fw.append(Integer.toString(result.getInt(4)));
                 fw.append(",");
                 fw.append("\n");
             }
